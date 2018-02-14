@@ -172,14 +172,14 @@ static void *def_tasha_mbhc_cal(void)
 	btn_high = ((void *)&btn_cfg->_v_btn_low) +
 		(sizeof(btn_cfg->_v_btn_low[0]) * btn_cfg->num_btn);
 
-	btn_high[0] = 75;
-	btn_high[1] = 150;
-	btn_high[2] = 237;
-	btn_high[3] = 450;
-	btn_high[4] = 450;
-	btn_high[5] = 450;
-	btn_high[6] = 450;
-	btn_high[7] = 450;
+	btn_high[0] = 73;
+	btn_high[1] = 146;
+	btn_high[2] = 233;
+	btn_high[3] = 438;
+	btn_high[4] = 438;
+	btn_high[5] = 438;
+	btn_high[6] = 438;
+	btn_high[7] = 438;
 
 	return tasha_wcd_cal;
 }
@@ -439,7 +439,7 @@ static int msm8952_enable_codec_mclk(struct snd_soc_codec *codec, int enable,
 static int slim5_rx_sample_rate_get(struct snd_kcontrol *kcontrol,
 	struct snd_ctl_elem_value *ucontrol)
 {
-	int sample_rate_val = 0;
+	int sample_rate_val = 1;
 
 	switch (slim5_rx_sample_rate) {
 	case SAMPLING_RATE_44P1KHZ:
@@ -559,7 +559,7 @@ static int msm_slim_1_tx_ch_put(struct snd_kcontrol *kcontrol,
 static int slim0_rx_sample_rate_get(struct snd_kcontrol *kcontrol,
 	struct snd_ctl_elem_value *ucontrol)
 {
-	int sample_rate_val = 0;
+	int sample_rate_val = 1;
 
 	switch (slim0_rx_sample_rate) {
 	case SAMPLING_RATE_44P1KHZ:
@@ -610,6 +610,70 @@ static int slim0_rx_sample_rate_put(struct snd_kcontrol *kcontrol,
 
 	pr_debug("%s: slim0_rx_sample_rate = %d\n", __func__,
 			slim0_rx_sample_rate);
+
+	return 0;
+}
+
+static int slim4_rx_sample_rate_get(struct snd_kcontrol *kcontrol,
+	struct snd_ctl_elem_value *ucontrol)
+{
+	int sample_rate_val = 1;
+
+	switch (slim4_rx_sample_rate) {
+	case SAMPLING_RATE_16KHZ:
+		sample_rate_val = 4;
+		break;
+	case SAMPLING_RATE_44P1KHZ:
+		sample_rate_val = 3;
+		break;
+
+	case SAMPLING_RATE_192KHZ:
+		sample_rate_val = 2;
+		break;
+
+	case SAMPLING_RATE_96KHZ:
+		sample_rate_val = 1;
+		break;
+
+	case SAMPLING_RATE_48KHZ:
+	default:
+		sample_rate_val = 0;
+		break;
+	}
+
+	ucontrol->value.integer.value[0] = sample_rate_val;
+	pr_debug("%s: slim4_rx_sample_rate = %d\n", __func__,
+				slim4_rx_sample_rate);
+
+	return 0;
+}
+
+static int slim4_rx_sample_rate_put(struct snd_kcontrol *kcontrol,
+	struct snd_ctl_elem_value *ucontrol)
+{
+	pr_debug("%s: ucontrol value = %ld\n", __func__,
+			ucontrol->value.integer.value[0]);
+
+	switch (ucontrol->value.integer.value[0]) {
+	case 4:
+		slim4_rx_sample_rate = SAMPLING_RATE_16KHZ;
+		break;
+	case 3:
+		slim4_rx_sample_rate = SAMPLING_RATE_44P1KHZ;
+		break;
+	case 2:
+		slim4_rx_sample_rate = SAMPLING_RATE_192KHZ;
+		break;
+	case 1:
+		slim4_rx_sample_rate = SAMPLING_RATE_96KHZ;
+		break;
+	case 0:
+	default:
+		slim4_rx_sample_rate = SAMPLING_RATE_48KHZ;
+	}
+
+	pr_debug("%s: slim4_rx_sample_rate = %d\n", __func__,
+			slim4_rx_sample_rate);
 
 	return 0;
 }
@@ -703,7 +767,7 @@ static int slim6_rx_bit_format_put(struct snd_kcontrol *kcontrol,
 static int slim6_rx_sample_rate_get(struct snd_kcontrol *kcontrol,
 				     struct snd_ctl_elem_value *ucontrol)
 {
-	int sample_rate_val = 0;
+	int sample_rate_val = 1;
 
 	switch (slim6_rx_sample_rate) {
 	case SAMPLING_RATE_44P1KHZ:
@@ -956,7 +1020,7 @@ static int msm_slim_0_tx_ch_put(struct snd_kcontrol *kcontrol,
 static int slim0_tx_sample_rate_get(struct snd_kcontrol *kcontrol,
 			struct snd_ctl_elem_value *ucontrol)
 {
-	int sample_rate_val = 0;
+	int sample_rate_val = 1;
 
 	switch (slim0_tx_sample_rate) {
 	case SAMPLING_RATE_192KHZ:
@@ -1006,6 +1070,66 @@ static int slim0_tx_sample_rate_put(struct snd_kcontrol *kcontrol,
 	return rc;
 }
 
+static int slim2_tx_sample_rate_get(struct snd_kcontrol *kcontrol,
+			struct snd_ctl_elem_value *ucontrol)
+{
+	int sample_rate_val = 1;
+
+	switch (slim2_tx_sample_rate) {
+	case SAMPLING_RATE_16KHZ:
+		sample_rate_val = 4;
+		break;
+	case SAMPLING_RATE_192KHZ:
+		sample_rate_val = 2;
+		break;
+	case SAMPLING_RATE_96KHZ:
+		sample_rate_val = 1;
+		break;
+	case SAMPLING_RATE_48KHZ:
+	default:
+		sample_rate_val = 0;
+		break;
+	}
+
+	ucontrol->value.integer.value[0] = sample_rate_val;
+	pr_debug("%s: slim2_tx_sample_rate = %d\n", __func__,
+					slim2_tx_sample_rate);
+	return 0;
+
+}
+
+static int slim2_tx_sample_rate_put(struct snd_kcontrol *kcontrol,
+			struct snd_ctl_elem_value *ucontrol)
+{
+	int rc = 0;
+
+	pr_debug("%s: ucontrol value = %ld\n", __func__,
+				ucontrol->value.integer.value[0]);
+
+	switch (ucontrol->value.integer.value[0]) {
+	case 4:
+		slim2_tx_sample_rate = SAMPLING_RATE_16KHZ;
+		break;
+	case 2:
+		slim2_tx_sample_rate = SAMPLING_RATE_192KHZ;
+		break;
+	case 1:
+		slim2_tx_sample_rate = SAMPLING_RATE_96KHZ;
+		break;
+	case 0:
+		slim2_tx_sample_rate = SAMPLING_RATE_48KHZ;
+		break;
+	default:
+		rc = -EINVAL;
+		pr_err("%s: invalid sample rate being passed\n", __func__);
+		break;
+	}
+	pr_debug("%s: slim2_tx_sample_rate = %d\n", __func__,
+		slim2_tx_sample_rate);
+	return rc;
+}
+
+>>>>>>> 910357d78e8b... Sound: improve audio processing by updating some limits.
 static int msm_btsco_rate_get(struct snd_kcontrol *kcontrol,
 				struct snd_ctl_elem_value *ucontrol)
 {
