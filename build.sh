@@ -30,20 +30,23 @@ nc='\033[0m'
 #directories
 KERNEL_DIR=$PWD
 KERN_IMG=$KERNEL_DIR/arch/arm64/boot/Image.gz-dtb
-LCD_KO=$KERNEL_DIR/drivers/video/backlight/lcd.ko
-RDBG_KO=$KERNEL_DIR/drivers/char/rdbg.ko
-EV_KO=$KERNEL_DIR/drivers/input/evbug.ko
-SPI_KO=$KERNEL_DIR/drivers/spi/spidev.ko
-WIL_KO=$KERNEL_DIR/drivers/net/wireless/ath/wil6210/wil6210.ko
-MMCT_KO=$KERNEL_DIR/drivers/mmc/card/mmc_test.ko
-UFST_KO=$KERNEL_DIR/drivers/scsi/ufs/ufs_test.ko
-BACKL_KO=$KERNEL_DIR/drivers/video/backlight/backlight.ko
-ANSICP_KO=$KERNEL_DIR/crypto/ansi_cprng.ko
-GENERIC_KO=$KERNEL_DIR/drivers/video/backlight/generic_bl.ko
-TESTIO_KO=$KERNEL_DIR/block/test-iosched.ko
-BRNET_KO=$KERNEL_DIR/net/bridge/br_netfilter.ko
-MMCB_KO=$KERNEL_DIR/drivers/mmc/card/mmc_block_test.ko
 WLAN_KO=$KERNEL_DIR/drivers/staging/prima/wlan.ko
+NFS_KO=$KERNEL_DIR/fs/nfs/nfs.ko
+CIFS_KO=$KERNEL_DIR/fs/cifs/cifs.ko
+NTFS_KO=$KERNEL_DIR/fs/ntfs/ntfs.ko
+EXFAT_KO=$KERNEL_DIR/fs/exfat/exfat.ko
+LOCKD_KO=$KERNEL_DIR/fs/lockd/lockd.ko
+NFSV2_KO=$KERNEL_DIR/fs/nfs/nfsv2.ko
+NFSV3_KO=$KERNEL_DIR/fs/nfs/nfsv3.ko
+NFSV4_KO=$KERNEL_DIR/fs/nfs/nfsv4.ko
+GRACE_KO=$KERNEL_DIR/fs/nfs_common/grace.ko
+SUNRPC_KO=$KERNEL_DIR/net/sunrpc/sunrpc.ko
+FSCACHE_KO=$KERNEL_DIR/fs/fscache/fscache.ko
+XPAD_KO=$KERNEL_DIR/drivers/input/joystick/xpad.ko
+RPCGSS_KO=$KERNEL_DIR/net/sunrpc/auth_gss/auth_rpcgss.ko
+KRB5_KO=$KERNEL_DIR/net/sunrpc/auth_gss/rpcsec_gss_krb5.ko
+BLOCKLAYOUT_KO=$KERNEL_DIR/fs/nfs/blocklayout/blocklayoutdriver.ko
+NFSLAYOUT_KO=$KERNEL_DIR/fs/nfs/filelayout/nfs_layout_nfsv41_files.ko
 ZIP_DIR=$KERNEL_DIR/miui_repack
 CONFIG_DIR=$KERNEL_DIR/arch/arm64/configs
 
@@ -141,21 +144,24 @@ if [ "$choice" == "4" ]; then
   echo -e "\n$cyan#######################################################################$nc"
   cd $ZIP_DIR
   make clean &>/dev/null
-  cp $KERN_IMG $MIUI_ZIP_DIR/boot/zImage
-  cp $LCD_KO $MIUI_ZIP_DIR/system/lib/modules
-  cp $RDBG_KO $MIUI_ZIP_DIR/system/lib/modules
-  cp $EV_KO $MIUI_ZIP_DIR/system/lib/modules
-  cp $SPI_KO $MIUI_ZIP_DIR/system/lib/modules
-  cp $WIL_KO $MIUI_ZIP_DIR/system/lib/modules
-  cp $MMCT_KO $MIUI_ZIP_DIR/system/lib/modules
-  cp $UFST_KO $MIUI_ZIP_DIR/system/lib/modules
-  cp $BACKL_KO $MIUI_ZIP_DIR/system/lib/modules
-  cp $ANSICP_KO $MIUI_ZIP_DIR/system/lib/modules
-  cp $GENERIC_KO $MIUI_ZIP_DIR/system/lib/modules
-  cp $TESTIO_KO $MIUI_ZIP_DIR/system/lib/modules
-  cp $BRNET_KO $MIUI_ZIP_DIR/system/lib/modules
-  cp $MMCB_KO $MIUI_ZIP_DIR/system/lib/modules
-  cp $WLAN_KO $MIUI_ZIP_DIR/system/lib/modules/pronto/pronto_wlan.ko
+  cp $KERN_IMG $ZIP_DIR/boot/zImage
+  cp $NFS_KO $ZIP_DIR/fs/nfs/nfs.ko
+  cp $CIFS_KO $ZIP_DIR/fs/cifs/cifs.ko
+  cp $NTFS_KO $ZIP_DIR/fs/ntfs/ntfs.ko
+  cp $EXFAT_KO $ZIP_DIR/fs/exfat/exfat.ko
+  cp $LOCKD_KO $ZIP_DIR/fs/lockd/lockd.ko
+  cp $NFSV2_KO $ZIP_DIR/fs/nfs/nfsv2.ko
+  cp $NFSV3_KO $ZIP_DIR/fs/nfs/nfsv3.ko
+  cp $NFSV4_KO $ZIP_DIR/fs/nfs/nfsv4.ko
+  cp $GRACE_KO $ZIP_DIR/fs/nfs_common/grace.ko
+  cp $SUNRPC_KO $ZIP_DIR/net/sunrpc/sunrpc.ko
+  cp $FSCACHE_KO $ZIP_DIR/fs/fscache/fscache.ko
+  cp $XPAD_KO $ZIP_DIR/drivers/input/joystick/xpad.ko
+  cp $RPCGSS_KO $ZIP_DIR/net/sunrpc/auth_gss/auth_rpcgss.ko
+  cp $KRB5_KO $ZIP_DIR/net/sunrpc/auth_gss/rpcsec_gss_krb5.ko
+  cp $BLOCKLAYOUT_KO $ZIP_DIR/fs/nfs/blocklayout/blocklayoutdriver.ko
+  cp $NFSLAYOUT_KO $ZIP_DIR/fs/nfs/filelayout/nfs_layout_nfsv41_files.ko
+  cp $WLAN_KO $ZIP_DIR/system/lib/modules/pronto/pronto_wlan.ko
   make &>/dev/null
   make sign &>/dev/null
   cd ..
