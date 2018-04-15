@@ -145,22 +145,22 @@ if [ "$choice" == "4" ]; then
   cd $ZIP_DIR
   make clean &>/dev/null
   cp $KERN_IMG $ZIP_DIR/boot/zImage
-  cp $NFS_KO $ZIP_DIR/fs/nfs/nfs.ko
-  cp $CIFS_KO $ZIP_DIR/fs/cifs/cifs.ko
-  cp $NTFS_KO $ZIP_DIR/fs/ntfs/ntfs.ko
-  cp $EXFAT_KO $ZIP_DIR/fs/exfat/exfat.ko
-  cp $LOCKD_KO $ZIP_DIR/fs/lockd/lockd.ko
-  cp $NFSV2_KO $ZIP_DIR/fs/nfs/nfsv2.ko
-  cp $NFSV3_KO $ZIP_DIR/fs/nfs/nfsv3.ko
-  cp $NFSV4_KO $ZIP_DIR/fs/nfs/nfsv4.ko
-  cp $GRACE_KO $ZIP_DIR/fs/nfs_common/grace.ko
-  cp $SUNRPC_KO $ZIP_DIR/net/sunrpc/sunrpc.ko
-  cp $FSCACHE_KO $ZIP_DIR/fs/fscache/fscache.ko
-  cp $XPAD_KO $ZIP_DIR/drivers/input/joystick/xpad.ko
-  cp $RPCGSS_KO $ZIP_DIR/net/sunrpc/auth_gss/auth_rpcgss.ko
-  cp $KRB5_KO $ZIP_DIR/net/sunrpc/auth_gss/rpcsec_gss_krb5.ko
-  cp $BLOCKLAYOUT_KO $ZIP_DIR/fs/nfs/blocklayout/blocklayoutdriver.ko
-  cp $NFSLAYOUT_KO $ZIP_DIR/fs/nfs/filelayout/nfs_layout_nfsv41_files.ko
+  cp $NFS_KO $ZIP_DIR/system/lib/modules/nfs.ko
+  cp $CIFS_KO $ZIP_DIR/system/lib/modules/cifs.ko
+  cp $NTFS_KO $ZIP_DIR/system/lib/modules/ntfs.ko
+  cp $EXFAT_KO $ZIP_DIR/system/lib/modules/exfat.ko
+  cp $LOCKD_KO $ZIP_DIR/system/lib/modules/lockd.ko
+  cp $NFSV2_KO $ZIP_DIR/system/lib/modules/nfsv2.ko
+  cp $NFSV3_KO $ZIP_DIR/system/lib/modules/nfsv3.ko
+  cp $NFSV4_KO $ZIP_DIR/system/lib/modules/nfsv4.ko
+  cp $GRACE_KO $ZIP_DIR/system/lib/modules/grace.ko
+  cp $SUNRPC_KO $ZIP_DIR/system/lib/modules/sunrpc.ko
+  cp $FSCACHE_KO $ZIP_DIR/system/lib/modules/fscache.ko
+  cp $XPAD_KO $ZIP_DIR/system/lib/modules/xpad.ko
+  cp $RPCGSS_KO $ZIP_DIR/system/lib/modules/auth_rpcgss.ko
+  cp $KRB5_KO $ZIP_DIR/system/lib/modules/rpcsec_gss_krb5.ko
+  cp $BLOCKLAYOUT_KO $ZIP_DIR/system/lib/modules/blocklayoutdriver.ko
+  cp $NFSLAYOUT_KO $ZIP_DIR/system/lib/modules/nfs_layout_nfsv41_files.ko
   cp $WLAN_KO $ZIP_DIR/system/lib/modules/pronto/pronto_wlan.ko
   make &>/dev/null
   make sign &>/dev/null
