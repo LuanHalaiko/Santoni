@@ -1,6 +1,6 @@
-NAME ?= MsmProject
+NAME ?= Redmi4X
 
-VERSION ?= Santoni
+VERSION ?= MIUI
 
 DATE := $(shell date +'%Y%m%d')
 

@@ -1,10 +1,6 @@
 #!/bin/bash
-###################################
-#                                 #
-#  DragonKernel build script 2.0  #
-#                                 #
-###################################
 #
+# Redmi 4x kernel compilation script
 # Copyright (C) 2018 Luan Halaiko and Ashishm94 (tecnotailsplays@gmail.com)
 #
 # This program is free software; you can redistribute it and/or
@@ -34,7 +30,21 @@ nc='\033[0m'
 #directories
 KERNEL_DIR=$PWD
 KERN_IMG=$KERNEL_DIR/arch/arm64/boot/Image.gz-dtb
-ZIP_DIR=$KERNEL_DIR/Zipper
+LCD_KO=$KERNEL_DIR/drivers/video/backlight/lcd.ko
+RDBG_KO=$KERNEL_DIR/drivers/char/rdbg.ko
+EV_KO=$KERNEL_DIR/drivers/input/evbug.ko
+SPI_KO=$KERNEL_DIR/drivers/spi/spidev.ko
+WIL_KO=$KERNEL_DIR/drivers/net/wireless/ath/wil6210/wil6210.ko
+MMCT_KO=$KERNEL_DIR/drivers/mmc/card/mmc_test.ko
+UFST_KO=$KERNEL_DIR/drivers/scsi/ufs/ufs_test.ko
+BACKL_KO=$KERNEL_DIR/drivers/video/backlight/backlight.ko
+ANSICP_KO=$KERNEL_DIR/crypto/ansi_cprng.ko
+GENERIC_KO=$KERNEL_DIR/drivers/video/backlight/generic_bl.ko
+TESTIO_KO=$KERNEL_DIR/block/test-iosched.ko
+BRNET_KO=$KERNEL_DIR/net/bridge/br_netfilter.ko
+MMCB_KO=$KERNEL_DIR/drivers/mmc/card/mmc_block_test.ko
+WLAN_KO=$KERNEL_DIR/drivers/staging/prima/wlan.ko
+ZIP_DIR=$KERNEL_DIR/miui_repack
 CONFIG_DIR=$KERNEL_DIR/arch/arm64/configs
 
 #export
@@ -62,7 +72,7 @@ echo -e "\n############################### BUILDER #############################
 
 #main script
 while true; do
-echo -e "\n$green[1]Build AOSP/LOS"
+echo -e "\n$green[1]Build MIUI"
 echo -e "[2]Regenerate defconfig"
 echo -e "[3]Source cleanup"
 echo -e "[4]Create flashable zip"
@@ -131,11 +141,25 @@ if [ "$choice" == "4" ]; then
   echo -e "\n$cyan#######################################################################$nc"
   cd $ZIP_DIR
   make clean &>/dev/null
-  cp $KERN_IMG $ZIP_DIR/boot/zImage
+  cp $KERN_IMG $MIUI_ZIP_DIR/boot/zImage
+  cp $LCD_KO $MIUI_ZIP_DIR/system/lib/modules
+  cp $RDBG_KO $MIUI_ZIP_DIR/system/lib/modules
+  cp $EV_KO $MIUI_ZIP_DIR/system/lib/modules
+  cp $SPI_KO $MIUI_ZIP_DIR/system/lib/modules
+  cp $WIL_KO $MIUI_ZIP_DIR/system/lib/modules
+  cp $MMCT_KO $MIUI_ZIP_DIR/system/lib/modules
+  cp $UFST_KO $MIUI_ZIP_DIR/system/lib/modules
+  cp $BACKL_KO $MIUI_ZIP_DIR/system/lib/modules
+  cp $ANSICP_KO $MIUI_ZIP_DIR/system/lib/modules
+  cp $GENERIC_KO $MIUI_ZIP_DIR/system/lib/modules
+  cp $TESTIO_KO $MIUI_ZIP_DIR/system/lib/modules
+  cp $BRNET_KO $MIUI_ZIP_DIR/system/lib/modules
+  cp $MMCB_KO $MIUI_ZIP_DIR/system/lib/modules
+  cp $WLAN_KO $MIUI_ZIP_DIR/system/lib/modules/pronto/pronto_wlan.ko
   make &>/dev/null
   make sign &>/dev/null
   cd ..
-  echo -e "$purple(i)Flashable zip generated under $ZIP_DIR.$nc"
+  echo -e "$purple(i)Miui flashable zip generated under $ZIP_DIR.$nc"
   echo -e "$cyan#######################################################################$nc"
 fi
 

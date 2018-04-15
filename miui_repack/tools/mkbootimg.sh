@@ -3,7 +3,6 @@
 # mkboot script helper
 # Base of Anykernel by osm0sis (https://github.com/osm0sis).
 # rainforce279 @ 17-12-2017
-# LuanHalaiko @ 24-02-2018
 
 cmdline=`cat /tmp/boot.img-cmdline`;
 board=`cat /tmp/boot.img-board`;
@@ -23,13 +22,13 @@ fi;
 if [ -f /tmp/boot.img-osversion ]; then
 	osver=`cat /tmp/boot.img-osversion`;
 else
-	osver=8.1.0;
+	osver=7.1.2;
 fi;
 
 if [ -f /tmp/boot.img-oslevel ]; then
 	osvel=`cat /tmp/boot.img-oslevel`;
 else
-	osvel=2018-02;
+	osvel=2018-01;
 fi;
 
 /tmp/mkbootimg --kernel /tmp/zImage --ramdisk /tmp/boot.img-ramdisk.gz --cmdline "$cmdline" --board "$board" --base $base --pagesize $pagesize --kernel_offset $kerneloff --ramdisk_offset $ramdiskoff --second_offset $secondoff --tags_offset "$tagsoff" --os_version "$osver" --os_patch_level "$osvel" --hash "$hashfck" --output /tmp/newboot.img;
