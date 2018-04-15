@@ -919,25 +919,6 @@ static irqreturn_t ft5x06_ts_interrupt(int irq, void *dev_id)
 		if (!num_touches && !status && !id)
 			break;
 
-#ifdef CONFIG_SANTONI_DTB
-		if (y == 2000)  {
-
-			y = 1344;
-
-			switch(x) {
-			case 180: x = 150;
-				break;
-			case 540: x = 360;
-				break;
-			case 900: x = 580;
-				break;
-			default:
-				break;
-			}
-
-		}
-#endif
-
 #ifdef CONFIG_WAKE_GESTURES
 		if (data->suspended)
 			x += 5000;
